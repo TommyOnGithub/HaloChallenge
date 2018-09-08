@@ -1,0 +1,14 @@
+
+html {
+	box-sizing: border-box;
+}
+*, *:after, *;before {
+	box-sizing: inherit;
+}
+main {
+	font-family: Lato, "Halvetica Neue", Arial, "Lucida Grande", Tahoma, Verdana, sans-sarif;
+	max-width: 80%;
+	margin: 0 auto;
+	padding: 30px 0;
+	min-height: 100vh
+}

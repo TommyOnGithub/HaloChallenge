@@ -1,0 +1,31 @@
+p {
+	margin: 0;
+}
+input[type=text] {
+	background: transparent;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid black;
+	font-size: 16px
+}
+.content-wrap {
+	max-width: 80%;
+	margin: 0 auto;
+}
+.text {
+	margin: 10px 0;
+}
+.field {
+	display: inline-block;
+}
+.field+.field {
+	margin-left: 30px;
+}
+.display {
+	margin: 15px;
+	font-size: 14px;
+}
+.submit {
+	margin-left: 5%;
+	margin-top: 10px;
+}

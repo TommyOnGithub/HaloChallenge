@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}
+	{{ super() }} | Home
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="../static/index.css">
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="content-wrap">
+			<form action="{{ url_for('setter_save') }}" method="post">
+				<h2>Setter</h2>
+				<p>Enter a key-value pair and press "SET" to commit.</p>
+				{{ set_form.csrf }}
+				<div class="input text">
+					<div class="input field">
+						{{ set_form.setter_key.label }} {{ set_form.setter_key }}
+					</div>
+					<div class="input field">
+						{{ set_form.setter_value.label }} {{ set_form.setter_value }}
+					</div>
+				</div>
+				<div class="input submit">
+					<input type="submit" value="SET" />
+				</div>
+			</form>
+			<form action="{{ url_for('get_pressed') }}" method="post">
+				<h2>Getter</h2>
+				<p>Enter a key and press "GET" to retrieve the corresponding value.</p>
+				{{ get_form.csrf }}
+				<div class="input text">
+					{{ get_form.getter_key.label }} {{ get_form.getter_key }}
+				</div>
+				<div class="input submit">
+					<input type="submit" value="GET" />
+				</div>
+			</form>
+			<div class="display">
+				<h1>{{ message }}</h1>
+			</div>
+		</div>
+	</main>
+{% endblock %}

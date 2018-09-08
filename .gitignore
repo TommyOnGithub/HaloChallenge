@@ -1,2 +1,3 @@
 # virtualenv folder
 halo_app/
+*.sqlite3
