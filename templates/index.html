@@ -6,6 +6,11 @@
 	<link rel="stylesheet" type="text/css" href="../static/index.css">
 {% endblock %}
 {% block body %}
+	<header>
+		<nav>
+			<a href="{{ url_for('logout') }}" class="btn-secondary">Log out</a>
+		</nav>
+	</header>
 	<main>
 		<div class="content-wrap">
 			<form action="{{ url_for('setter_save') }}" method="post">
@@ -14,10 +19,26 @@
 				{{ set_form.csrf }}
 				<div class="input text">
 					<div class="input field">
-						{{ set_form.setter_key.label }} {{ set_form.setter_key }}
+						{{ set_form.setter_key.label }}
+
+						{% if set_form.setter_key.errors %}
+							{% for error in set_form.setter_key.errors %}
+								<p class="error-message">{{ error }}</p>
+							{% endfor %}
+						{% endif %}
+
+						{{ set_form.setter_key }}
 					</div>
 					<div class="input field">
-						{{ set_form.setter_value.label }} {{ set_form.setter_value }}
+						{{ set_form.setter_value.label }}
+
+						{% if set_form.setter_value.errors %}
+							{% for error in set_form.setter_value.errors %}
+								<p class="error-message">{{ error }}</p>
+							{% endfor %}
+						{% endif %}
+
+						{{ set_form.setter_value }}
 					</div>
 				</div>
 				<div class="input submit">
@@ -29,7 +50,15 @@
 				<p>Enter a key and press "GET" to retrieve the corresponding value.</p>
 				{{ get_form.csrf }}
 				<div class="input text">
-					{{ get_form.getter_key.label }} {{ get_form.getter_key }}
+					{{ get_form.getter_key.label }}
+
+					{% if get_form.getter_key.errors %}
+						{% for error in get_form.getter_key.errors %}
+							<p class="error-message">{{ error }}</p>
+						{% endfor %}
+					{% endif %}
+
+					{{ get_form.getter_key }}
 				</div>
 				<div class="input submit">
 					<input type="submit" value="GET" />

@@ -1,3 +1,6 @@
 # virtualenv folder
 halo_app/
 *.sqlite3
+*.pyc
+.DS_Store
+models.py
