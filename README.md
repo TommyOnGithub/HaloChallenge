@@ -5,7 +5,8 @@ This app was developed with python 2.7 on MacBook running macOS High
   Sierra.
 
 To run, cd to halo_challenge_app/ and use the command:
-$ python dict_app.py
+  
+  $ python dict_app.py
 
 The application runs on localhost:8000
 
