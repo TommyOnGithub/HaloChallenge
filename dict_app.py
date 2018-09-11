@@ -16,14 +16,11 @@ from werkzeug import generate_password_hash
 from werkzeug import check_password_hash
 import os
 
-
-# from models import db
-# from models import Record
-# from models import User
 from forms import SetForm
 from forms import GetForm
 from forms import SignupForm
 from forms import LoginForm
+
 
 __author__ = "Thomas Barry"
 
@@ -32,8 +29,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/tommy/halo_challenge_a
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# db.init_app(app)
-# db.create_all()
+def init_db():
+    db = SQLAlchemy(app)
 
 class User(db.Model):
     """
@@ -102,7 +99,6 @@ class Record(db.Model):
         self.value = value
         self.user = user
 
-
     def __repr__(self):
         return '<Record %r>' % self.key
 
@@ -123,6 +119,7 @@ def index():
                             get_form=get_form,
                             set_form=set_form,
                             essage=message)
+
 
 @app.route('/setter_saved', methods=['POST'])
 def setter_save():
@@ -152,6 +149,7 @@ def setter_save():
                             set_form=set_form,
                             message=message)
 
+
 @app.route('/get_pressed', methods=['POST'])
 def get_pressed():
     """
@@ -165,12 +163,15 @@ def get_pressed():
     set_form = SetForm(request.form)
     get_form = GetForm(request.form)
     message = None
-    # try:
-    record_index = User.query.filter_by(email=session['email']).first().records.index(Record.query.get(key))
-    value = User.query.filter_by(email=session['email']).first().records[record_index].value
-    message = 'The value for "{}" is "{}".'.format(key, value)
-    # except:
-    #      message = 'The database is missing or has been renamed.'
+    try:
+        # There has to be a better way to do this...
+        record_index = User.query.filter_by(email=session['email']).first().records.index(Record.query.get(key))
+        value = User.query.filter_by(email=session['email']).first().records[record_index].value
+        message = 'The value for "{}" is "{}".'.format(key, value)
+    except ValueError:
+        message = 'The key {} does not exist.'.format(key)
+    except:
+        message = 'The database is missing or has been renamed.'
     
     if not message:
         message = 'A record with that key does not exist.'
@@ -178,6 +179,7 @@ def get_pressed():
                             get_form=get_form,
                             set_form=set_form,
                             message=message)
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -198,6 +200,7 @@ def signup():
 
     elif request.method == 'GET':
         return render_template('signup.html', form=form)
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -221,12 +224,14 @@ def login():
     elif request.method == 'GET':
         return render_template('login.html', form=form)
 
+
 @app.route('/logout')
 def logout():
     session.pop('email', None)
     return redirect(url_for('index'))
 
+
 if __name__ == "__main__":
-    app.secret_key = os.urandom(16)   # '3sf8472910ksgl2894j3jf2j989k2i463'
+    app.secret_key = os.urandom(16)
     db.create_all()
     app.run(debug=True, port=8000, host='0.0.0.0')

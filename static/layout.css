@@ -5,10 +5,22 @@ html {
 *, *:after, *;before {
 	box-sizing: inherit;
 }
+body {
+	font-family: Lato, "Halvetica Neue", Arial, "Lucida Grande", Tahoma, Verdana, sans-sarif;	
+}
 main {
-	font-family: Lato, "Halvetica Neue", Arial, "Lucida Grande", Tahoma, Verdana, sans-sarif;
 	max-width: 80%;
 	margin: 0 auto;
 	padding: 30px 0;
 	min-height: 100vh
+}
+nav {
+	width: 100px;
+	margin: 0 auto;
+}
+nav a {
+	text-decoration: none;
+	color: black;
+	padding: 10px 0;
+	border-bottom: 2px solid black;
 }
